@@ -8,18 +8,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Official PumpkinMC Source Code
-        uses: actions/checkout@v6
-        with:
-          repository: 'Pumpkin-MC/Pumpkin'
-          ref: 'master'
-          submodules: recursive
+      - name: Clone Official PumpkinMC Source Code
+        run: |
+          git clone --depth 1 --recursive -b master https://github.com/Pumpkin-MC/Pumpkin.git .
 
       - name: Setup Rust Toolchain
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          toolchain: stable
-          targets: aarch64-linux-android
+        run: |
+          rustup update stable
+          rustup default stable
+          rustup target add aarch64-linux-android
 
       - name: Install Android NDK
         uses: nttld/setup-ndk@v1
