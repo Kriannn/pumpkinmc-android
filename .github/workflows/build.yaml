@@ -11,6 +11,7 @@ jobs:
       - name: Clone Official PumpkinMC Source Code
         run: |
           git clone --depth 1 --recursive -b master https://github.com/Pumpkin-MC/Pumpkin.git .
+          rm -f rust-toolchain.toml rust-toolchain
 
       - name: Setup Rust Toolchain
         run: |
@@ -37,7 +38,7 @@ jobs:
           AR_aarch64_linux_android: ${{ steps.setup-ndk.outputs.ndk-path }}/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar
           
         run: |
-          cargo build --release --target aarch64-linux-android
+          cargo build --release --target=aarch64-linux-android
 
       - name: Upload Android Executable
         uses: actions/upload-artifact@v7
