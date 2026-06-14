@@ -42,11 +42,14 @@ jobs:
           export CXX_aarch64_linux_android="$NDK_PATH/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android35-clang++"
           export AR_aarch64_linux_android="$NDK_PATH/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar"
 
+          export CARGO_PROFILE_RELEASE_LTO="fat"
+          export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+          export CARGO_PROFILE_RELEASE_PANIC="abort"
+
           export RUSTFLAGS="-C opt-level=3 \
-                            -C lto=fat \
                             -C codegen-units=1 \
                             -C panic=abort \
-                            -C target-feature=+neon,+fp-armv8 \
+                            -C target-feature=+neon \
                             -C link-arg=-Wl,-z,max-page-size=16384"
           
           cargo build --release --target=aarch64-linux-android
