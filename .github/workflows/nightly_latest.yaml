@@ -51,11 +51,12 @@ jobs:
           export RUSTFLAGS="-C opt-level=3 \
                             -C codegen-units=1 \
                             -C panic=abort \
-                            -C target-feature=+neon,+outline-atomics \
+                            -C target-feature=+neon \
+                            -C linker-plugin-lto \
                             -C link-arg=-Wl,-z,max-page-size=16384 \
                             -C strip=symbols"
           
-          cargo +nightly build --release --target=aarch64-linux-android
+          cargo +nightly build --release --target=aarch64-linux-android -Z build-std=std,panic_abort
 
       - name: Upload Android Executable
         uses: actions/upload-artifact@v7
