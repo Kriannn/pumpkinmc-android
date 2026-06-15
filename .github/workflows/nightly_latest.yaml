@@ -53,7 +53,6 @@ jobs:
                             -C codegen-units=1 \
                             -C panic=abort \
                             -C target-feature=+neon \
-                            -C linker-plugin-lto \
                             -C link-arg=-Wl,-z,max-page-size=16384 \
                             -C strip=symbols"
           
