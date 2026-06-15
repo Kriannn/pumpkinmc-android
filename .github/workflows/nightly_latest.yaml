@@ -25,7 +25,7 @@ jobs:
           rustup update nightly
           rustup default nightly
           rustup target add aarch64-linux-android
-          rustup component add rust-src --toolchain nightly-aarch64-linux-android
+          rustup component add rust-src
 
       - name: Setup Android NDK
         run: |
