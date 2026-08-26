@@ -22,8 +22,8 @@ jobs:
 
       - name: Setup Rust
         run: |
-          rustup update stable
-          rustup default stable
+          rustup update nightly
+          rustup default nightly
           rustup target add aarch64-linux-android
 
       - name: Setup Android NDK
@@ -41,8 +41,14 @@ jobs:
           export CC_aarch64_linux_android="$NDK_PATH/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android24-clang"
           export CXX_aarch64_linux_android="$NDK_PATH/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android24-clang++"
           export AR_aarch64_linux_android="$NDK_PATH/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar"
+
+          export RUSTFLAGS="-C opt-level=3 \
+                            -C codegen-units=1 \
+                            -C panic=abort \
+                            -C link-arg=-Wl,-z,max-page-size=16384 \
+                            -C strip=symbols"
           
-          cargo build --release --target=aarch64-linux-android
+          cargo +nightly build --release --target=aarch64-linux-android
 
       - name: Upload Android Executable
         uses: actions/upload-artifact@v7
