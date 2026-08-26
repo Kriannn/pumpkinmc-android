@@ -49,6 +49,8 @@ jobs:
           export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
           export CARGO_PROFILE_RELEASE_PANIC="abort"
 
+          export RUST_MIN_STACK=33554432
+
           export RUSTFLAGS="-C opt-level=3 \
                             -C codegen-units=1 \
                             -C panic=abort \
