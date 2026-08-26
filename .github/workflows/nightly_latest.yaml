@@ -17,7 +17,7 @@ jobs:
 
       - name: Clone source code
         run: |
-          git clone --depth 1 --recursive -b master https://github.com/Pumpkin-MC/Pumpkin.git .
+          git clone --recurse-submodules https://github.com/Pumpkin-MC/Pumpkin.git .
           rm -f rust-toolchain.toml
 
       - name: Setup Rust
