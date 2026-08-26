@@ -29,12 +29,12 @@ jobs:
 
       - name: Setup Android NDK
         run: |
-          wget -q https://dl.google.com/android/repository/android-ndk-r30-beta1-linux.zip
-          unzip -q android-ndk-r30-beta1-linux.zip -d $HOME
+          wget -q https://dl.google.com/android/repository/android-ndk-r30-beta3-linux.zip
+          unzip -q android-ndk-r30-beta3-linux.zip -d $HOME
 
       - name: Compile Pumpkin
         run: |
-          export NDK_PATH="$HOME/android-ndk-r30-beta1"
+          export NDK_PATH="$HOME/android-ndk-r30-beta3"
           export ANDROID_NDK_ROOT="$NDK_PATH"
           export ANDROID_NDK_HOME="$NDK_PATH"
           
