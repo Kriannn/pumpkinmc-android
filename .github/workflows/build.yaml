@@ -47,7 +47,8 @@ jobs:
           export CARGO_PROFILE_RELEASE_PANIC="abort"
           export CARGO_PROFILE_RELEASE_STRIP="symbols"
 
-          export RUSTFLAGS="-C opt-level=3 \
+          export RUSTFLAGS="-C target-feature=+aes,+neon,+lse \
+                            -C opt-level=3 \
                             -C codegen-units=1 \
                             -C panic=abort \
                             -C link-arg=-Wl,-z,max-page-size=16384 \
