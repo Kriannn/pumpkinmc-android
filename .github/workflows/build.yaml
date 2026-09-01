@@ -23,7 +23,7 @@ jobs:
       - name: Setup Rust
         run: |
           rustup update
-          rustup toolchain install nightly --target aarch64-linux-android --component rust-src
+          rustup target add aarch64-linux-android
 
       - name: Setup Android NDK
         run: |
@@ -56,7 +56,7 @@ jobs:
                             -C link-arg=-Wl,--icf=all \
                             -C strip=symbols"
           
-          cargo +nightly build --release --target=aarch64-linux-android
+          cargo build --release --target=aarch64-linux-android
 
       - name: Upload Android Executable
         uses: actions/upload-artifact@v7
