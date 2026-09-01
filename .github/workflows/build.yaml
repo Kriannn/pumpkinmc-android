@@ -17,7 +17,7 @@ jobs:
 
       - name: Clone source code
         run: |
-          git clone --depth 1 --recursive -b master https://github.com/Pumpkin-MC/Pumpkin.git .
+          git clone --depth 1 --recurse-submodules --shallow-submodules -b master https://github.com/Pumpkin-MC/Pumpkin.git .
           rm rust-toolchain.toml
 
       - name: Setup Rust
@@ -41,12 +41,18 @@ jobs:
           export CXX_aarch64_linux_android="$NDK_PATH/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android35-clang++"
           export AR_aarch64_linux_android="$NDK_PATH/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar"
 
+          export CARGO_PROFILE_RELEASE_OPT_LEVEL="3"
           export CARGO_PROFILE_RELEASE_LTO="fat"
+          export CARGO_PROFILE_RELEASE_CODEGEN_UNITS="1"
+          export CARGO_PROFILE_RELEASE_PANIC="abort"
+          export CARGO_PROFILE_RELEASE_STRIP="symbols"
 
           export RUSTFLAGS="-C opt-level=3 \
                             -C codegen-units=1 \
                             -C panic=abort \
                             -C link-arg=-Wl,-z,max-page-size=16384 \
+                            -C link-arg=-Wl,--gc-sections \
+                            -C link-arg=-Wl,--icf=all \
                             -C strip=symbols"
           
           cargo build --release --target=aarch64-linux-android
