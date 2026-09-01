@@ -2,8 +2,8 @@ name: Build PumpkinMC for latest Android ARM64 nightly
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 1 * * *'
+  # schedule:
+  #   - cron: '0 1 * * *'
 
 jobs:
   build-android:
